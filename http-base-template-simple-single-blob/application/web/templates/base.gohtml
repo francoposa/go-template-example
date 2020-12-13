@@ -1,0 +1,22 @@
+{{define "base"}}
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>{{template "head" .}}</head>
+
+    <body>
+    {{template "body" .}}
+    {{template "scripts" .}}
+    </body>
+
+    </html>
+{{end}}
+
+{{define "head"}}
+    <meta charset="UTF-8">
+    <title>{{template "title"}} - Golang Templates</title>
+{{end}}
+
+{{define "scripts"}}
+    <script src="/static/js/index.js"></script>
+{{end}}
