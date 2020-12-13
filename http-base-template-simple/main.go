@@ -11,7 +11,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 
-	"go-template-example/http-base-template/application/server"
+	"go-template-example/http-base-template-simple/application/server"
 )
 
 func main() {
@@ -22,18 +22,24 @@ func main() {
 
 	templatePattern := filepath.Join(wd, "/application/web/templates/*")
 	baseTemplatePath := filepath.Join(wd, "/application/web/templates/base.gohtml")
+
+	outputPath := filepath.Join(wd, "/output/")
+
 	templates := server.NewTemplates(templatePattern, baseTemplatePath)
 	for key, val := range templates {
 		if key == "sign-in" {
-			fmt.Printf("Template key %s, with name %s:\n", key, val.Name())
-			fmt.Println(val.DefinedTemplates())
 
 			for _, tmpl := range val.Templates() {
-				fmt.Printf("Rendering Template %s\n", tmpl.Name())
-				val.ExecuteTemplate(os.Stdout, tmpl.Name(), "")
+				file, err := os.Create(filepath.Join(outputPath, tmpl.Name()+".html"))
+				if err != nil {
+					log.Fatal(err)
+				}
+				err = val.ExecuteTemplate(file, tmpl.Name(), "")
+				if err != nil {
+					log.Fatal(err)
+				}
 			}
 		}
-
 	}
 
 	templateRenderer := server.NewTemplateRenderer(templates, "base")

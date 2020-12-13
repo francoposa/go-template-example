@@ -23,6 +23,19 @@ func main() {
 	templatePattern := filepath.Join(wd, "/application/web/templates/*")
 	baseTemplatePath := filepath.Join(wd, "/application/web/templates/base.gohtml")
 	templates := server.NewTemplates(templatePattern, baseTemplatePath)
+	for key, val := range templates {
+		if key == "sign-in" {
+			fmt.Printf("Template key %s, with name %s:\n", key, val.Name())
+			fmt.Println(val.DefinedTemplates())
+
+			for _, tmpl := range val.Templates() {
+				fmt.Printf("Rendering Template %s\n", tmpl.Name())
+				val.ExecuteTemplate(os.Stdout, tmpl.Name(), "")
+			}
+		}
+
+	}
+
 	templateRenderer := server.NewTemplateRenderer(templates, "base")
 
 	webHandler := server.NewWebHandler(templateRenderer)

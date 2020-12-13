@@ -9,27 +9,6 @@ import (
 	"strings"
 )
 
-//func NewTemplates(pattern, baseTemplatePath string) map[string]*template.Template {
-//	templates := make(map[string]*template.Template)
-//
-//	templatePaths, err := filepath.Glob(pattern)
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//
-//	for _, templatePath := range templatePaths {
-//		if templatePath == baseTemplatePath {
-//			continue
-//		}
-//		fileName := filepath.Base(templatePath)
-//		templates[fileName] = template.Must(
-//			template.ParseFiles(templatePath, baseTemplatePath),
-//		)
-//	}
-//
-//	return templates
-//}
-
 func NewTemplates(pattern, baseTemplatePath string) map[string]*template.Template {
 	templates := make(map[string]*template.Template)
 
