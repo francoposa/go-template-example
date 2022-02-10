@@ -101,7 +101,7 @@ func main() {
 	//// define T3, which invokes T1 & T2, then invokes itself
 	//t3 := `{{define "T3"}}{{template "T1"}} {{template "T2"}}{{end}}{{template "T3"}}`
 	// define T3 with block, which invokes T1 & T2, then invokes itself in place
-	t3 := `{{block "T3" .}}{{template "T3"}} {{template "T2"}}{{end}}`
+	t3 := `{{block "T3" .}}{{template "T1"}} {{template "T2"}}{{end}}`
 
 	// create new template.Template collection
 	tmplEx1 := template.New("tmplEx1")
