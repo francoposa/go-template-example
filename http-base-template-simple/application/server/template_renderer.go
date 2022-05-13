@@ -43,10 +43,10 @@ func NewTemplateRenderer(
 	return &TemplateRenderer{templates: templates, baseTemplateName: baseTemplateName}
 }
 
-func (tr *TemplateRenderer) RenderTemplate(w http.ResponseWriter, templateFileName string, data interface{}) error {
-	templateToRender, ok := tr.templates[templateFileName]
+func (tr *TemplateRenderer) RenderTemplate(w http.ResponseWriter, templateName string, data interface{}) error {
+	templateToRender, ok := tr.templates[templateName]
 	if !ok {
-		return TemplateNotFoundError{Name: templateFileName}
+		return TemplateNotFoundError{Name: templateName}
 	}
 
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
